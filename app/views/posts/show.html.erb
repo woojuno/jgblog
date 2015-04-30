@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= link_to_unless_current @post.title %></h2>
+<p><%= simple_format @post.doc %></p>
+
+<hr>
+
+<div>
+	<% @post.comments.each do |comment| %>
+	<p>
+		<strong>Commented: <%= time_ago_in_words(comment.created_at) %></strong>
+		<br />
+		<%= comment.doc %>
+	</p>
+	<% end %>
+</div>
+
+<hr>
+
+<div>
+	<%= form_for([@post, Comment.new]) do |f| %>
+	<p>
+	    <%= f.label :doc %>
+		<%= f.text_field :doc %>
+	</p>
+	<p>
+		<%= f.submit %>
+	</p>
+	<% end %>
+</div>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
